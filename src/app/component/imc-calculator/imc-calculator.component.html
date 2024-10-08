@@ -1,0 +1,42 @@
+<div class="imc-container" [formGroup]="imcForm">
+  <h1>Calculadora de Índice de Masa Corporal (IMC)</h1>
+  
+  <div class="input-group">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" formControlName="name">
+    <div *ngIf="imcForm.get('name')?.invalid && imcForm.get('name')?.touched" class="error-message">
+      El nombre es requerido.
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="weight">Peso (kg):</label>
+    <input type="number" id="weight" formControlName="weight">
+    <div *ngIf="imcForm.get('weight')?.invalid && imcForm.get('weight')?.touched" class="error-message">
+      Ingrese un peso válido.
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="height">Altura (cm):</label>
+    <input type="number" id="height" formControlName="height">
+    <div *ngIf="imcForm.get('height')?.invalid && imcForm.get('height')?.touched" class="error-message">
+      Ingrese una altura válida.
+    </div>
+  </div>
+
+  <button (click)="calculateIMC()" [disabled]="imcForm.invalid">Calcular IMC</button>
+
+  <div *ngIf="imc !== null" class="result">
+    <p><strong>{{ imcForm.get('name')?.value }}</strong>, tu IMC es: <strong>{{ imc }}</strong> (<strong>{{ category }}</strong>)</p>
+    <p>{{ advice }}</p>
+    <p>{{ trend }}</p>
+  </div>
+  <h2>Historial de Cálculos</h2>
+  <ul>
+    <li *ngFor="let record of history">
+      <strong>{{ record.name }}</strong> ({{ record.date }}): IMC - {{ record.imc }} (<strong>{{ record.category }}</strong>)
+    </li>
+  </ul>
+  
+</div>

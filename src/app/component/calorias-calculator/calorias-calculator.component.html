@@ -1,0 +1,45 @@
+<div class="calorias-container">
+    <h1>Calculadora de Calorías Diarias Necesarias</h1>
+    
+    <form [formGroup]="caloriasForm" (ngSubmit)="calculateCalories()">
+      
+      <div class="input-group">
+        <label for="age">Edad (años):</label>
+        <input type="number" id="age" formControlName="age" placeholder="Ingresa tu edad">
+      </div>
+  
+      <div class="input-group">
+        <label for="weight">Peso (kg):</label>
+        <input type="number" id="weight" formControlName="weight" placeholder="Ingresa tu peso">
+      </div>
+  
+      <div class="input-group">
+        <label for="height">Altura (cm):</label>
+        <input type="number" id="height" formControlName="height" placeholder="Ingresa tu altura">
+      </div>
+  
+      <div class="input-group">
+        <label for="gender">Género:</label>
+        <select id="gender" formControlName="gender">
+          <option value="" disabled>Selecciona tu género</option>
+          <option value="male">Hombre</option>
+          <option value="female">Mujer</option>
+        </select>
+      </div>
+  
+      <div class="input-group">
+        <label for="activityLevel">Nivel de Actividad Física:</label>
+        <select id="activityLevel" formControlName="activityLevel">
+          <option value="" disabled>Selecciona tu nivel de actividad</option>
+          <option *ngFor="let level of activityLevels" [value]="level.value">{{ level.label }}</option>
+        </select>
+      </div>
+  
+      <button type="submit" [disabled]="caloriasForm.invalid">Calcular Calorías</button>
+    </form>
+  
+    <div *ngIf="caloriasNecesarias !== null" class="result">
+      <p>Tu ingesta diaria recomendada de calorías es: <strong>{{ caloriasNecesarias | number:'1.0-0' }} cal</strong></p>
+    </div>
+  </div>
+  
